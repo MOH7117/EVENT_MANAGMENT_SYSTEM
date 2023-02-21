@@ -1,96 +1,108 @@
 from django.shortcuts import render, redirect
 from datetime import date,time,datetime
-from .models import event, venue
-from .forms import VenueForm, EventForm 
+from .models import Event , Venue
 from django.http import HttpRequest,HttpResponseRedirect, HttpResponse
 
 
-def home_page(request):
+def home_page(request: HttpRequest):
     
     return render(request , 'main/base.html' , {'welcome':'Welcome To Our Events'})
 
 
-def all_events(request):
-    event_list = event.objects.all().order_by('event_date')
+def all_events(request: HttpRequest):
+    event_list = Event.objects.all().order_by('event_date')
     return render(request , 'main/event_list.html' , {'event_list': event_list})
 
-def add_venue(request):
-    submitted = False
+def add_venue(request: HttpRequest):
     if request.method == "POST":
-        form = VenueForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect('/add_venue?submitted=True')
-    else:        
-        add_venue_form = VenueForm(request.GET)
-        if submitted in request.GET:
-            submitted = True
-    return render(request ,'main/add_venue.html',{'form':add_venue_form , "submitted":submitted} )
+        new_venue = Venue(
+            name= request.POST["name"],
+            addrise = request.POST["addrise"],
+            phone = request.POST["phone"], 
+            email_addriss=request.POST["email"],
+            websit = request.POST["websit"])
+        new_venue.save()
+
+        return redirect("main:list-venues")
+    return render(request, "main/add_venue.html")
 
 
-def list_venues(request):
-    venue_list = venue.objects.all().order_by('name')
+def list_venues(request: HttpRequest):
+    venue_list = Venue.objects.all().order_by('name')
     return render(request, 'main/venue.html',{"venue_list":venue_list})
 
 
-def show_venue(request, venue_id):
-    veneu_sh = venue.objects.get(pk=venue_id)
-    return render(request, 'main/show_venue.html',{"veneu_sh":veneu_sh})
+def show_venue(request:HttpRequest, venue_id):
+    veneu = Venue.objects.get(pk=venue_id)
+    return render(request, 'main/show_venue.html',{"veneu":veneu})
 
 
-def search_venues(request):
+def search_venues(request: HttpRequest):
     if request.method == "POST":
         searched = request.POST['searched']
-        venues = venue.objects.filter(name__contains=searched)
+        venues = Venue.objects.filter(name__contains=searched)
 
         return render(request, 'main/search_venues.html',{'searched':searched, 'venues':venues})
     else:
          return render(request, 'main/search_venues.html',{})
 
 
-def update_venue(request, venue_id):
-     veneu_sh = venue.objects.get(pk=venue_id)
-     form = VenueForm(request.POST or None, instance=veneu_sh)
-     if form.is_valid():
-            form.save()
-            return redirect('list-venues')
-
-     return render(request, 'main/update_venue.html',{"veneu_sh":veneu_sh, 'form':form})
-
-
-def add_event(request):
-    submitted = False
+def update_venue(request: HttpRequest, venue_id):
+    venue = Venue.objects.get(pk=venue_id)
     if request.method == "POST":
-        form = EventForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect('/add_event?submitted=True')
-    else:        
-        form = EventForm(request.GET)
-        if submitted in request.GET:
-            submitted = True
-    return render(request ,'main/add_event.html',{'form':form , "submitted":submitted})
+        venue.name = request.POST["name"]
+        venue.addrise = request.POST["address"]
+        venue.phone = request.POST["phone"]
+        venue.email_addriss = request.POST["email"]
+        venue.websit = request.POST["website"]
+        #to check if user chosen a file to upload for the update
+        venue.save()
+        return redirect("main:list-venues")
+    return render(request, 'main/update_venue.html')
 
 
-def update_event(request, event_id):
-     Event = event.objects.get(pk=event_id)
-     form = EventForm(request.POST or None, instance=Event)
-     if form.is_valid():
-            form.save()
-            return redirect('list-events')
 
-     return render(request, 'main/update_event.html',{"Event":Event, 'form':form})
+def update_event(request: HttpRequest, event_id):
+    event = Event.objects.get(pk=event_id)
+    if request.method == "POST":
+        event.name = request.POST["name"]
+        event.event_date = request.POST["date"]
+        event.venue = request.POST["venue"]
+        event.manager = request.user
+        event.Description = request.POST["description"]
+        #to check if user chosen a file to upload for the update
+        event.save()
+        return redirect("main:list-events")
+    return render(request, 'main/update_event.html')
 
 #Delete an Event
-def delete_event(request, event_id):
-     Event = event.objects.get(pk=event_id) 
-     Event.delete()
-     return redirect('list-events')
+def delete_event(request:HttpRequest, event_id):
+     event = Event.objects.get(pk=event_id) 
+     event.delete()
+     return redirect('main:list-events')
 
 
 #Delete an Venue
-def delete_venue(request, venue_id):
-     Venue = venue.objects.get(pk=venue_id) 
-     Venue.delete()
-     return redirect('list-venues')
+def delete_venue(request:HttpRequest, venue_id):
+     venue = Venue.objects.get(pk=venue_id) 
+     venue.delete()
+     return redirect('main:list-venues')
 
+
+
+def add_event(request : HttpRequest):
+
+
+    if request.method == "POST":
+        #to add a new entry
+        new_event = Event(
+            name= request.POST["name"],
+            event_date = request.POST["date"],
+            venue = request.POST["venue"], 
+            manager=request.user,
+            Description = request.POST["description"])
+        new_event.save()
+        return redirect("main:list-events")
+
+
+    return render(request, "main/add_event.html")

@@ -3,19 +3,37 @@
 {% block content %}
 <h1>add New venue</h1>
 <br>
-{% if submitted %}
+<!-- {% if submitted %}
 your submited is done
-{% else %}
+{% else %} -->
 
 <div class="container">
 <form class="mx-sm-3 mb-2" action="" method=POST>
     
     {% csrf_token %}
-    {{ form.as_p }}
+    <div class="form-floating mt-2">
+        <input name="name" type="text" class="form-control" >
+        <label for="floatingInput"> Name</label>
+    </div> 
+    <div class="form-floating mt-2">
+        <input name="addrise" type="date" class="form-control" >
+        <label for="floatingInput">address</label>
+    </div> 
+    <div class="form-floating mt-2">
+        <input name="phone" type="text" class="form-control"  placeholder="username">
+        <label for="floatingInput">phone</label>
+    </div> 
+    <div class="form-floating mt-2">
+        <input name="email" type="text" class="form-control" >
+        <label for="floatingInput">email</label>
+    </div> 
+    <div class="form-floating mt-2">
+        <input name="websit" type="textarea" class="form-control"  >
+        <label for="floatingInput">websit</label>
+    </div> 
+   <br>
     <input type="submit" value="submit" class="btn btn-success">
     
-
-
 </form>
 </div>
 {% endif %}

@@ -4,16 +4,23 @@ from django.http import HttpRequest, HttpResponse
 from django.contrib import messages
 
 
-def login_user(request):
+def login_user(request : HttpRequest):
+    msg = "Error Loging, Try Again..."
     if request.method == "POST":
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(request, username = username, password = password)
         if user is not None:
             login(request, user)
-            return redirect('home_page')
+            return redirect('main:home_page')
         else:
-            messages.success(request, ("Error Loging, Try Again...")) 
-            return redirect('login')
-    else:
-        return render(request, 'authenticate/login.html')
+            
+            return render(request,'account/login.html' ,{"msg" : msg})
+
+    return render(request, 'account/login.html' )
+
+
+
+def logout_user(request: HttpRequest):
+    logout(request)
+    return redirect('account:login')

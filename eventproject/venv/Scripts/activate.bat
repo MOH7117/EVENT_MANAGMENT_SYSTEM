@@ -8,7 +8,7 @@ if defined _OLD_CODEPAGE (
     "%SystemRoot%\System32\chcp.com" 65001 > nul
 )
 
-set VIRTUAL_ENV=C:\Users\moham\django\eventproject\venv
+set VIRTUAL_ENV=C:\Users\moham\django\EVENT_MANAGMENT_SYSTEM\eventproject\venv
 
 if not defined PROMPT set PROMPT=$P$G
 

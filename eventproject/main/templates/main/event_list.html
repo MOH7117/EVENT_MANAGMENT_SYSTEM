@@ -16,18 +16,13 @@
             <li>venue website : {{event.venue.websit}}</li>
             <li>Manager: {{event.manager}}</li>
             <li>Description: {{event.Description}}</li>
-            <li><ul class="list-group">attendess
-                {% for user in event.attendess.all %}
-                <li class="list-group-item">{{ user }}</li>
-                {% endfor %}
-                </ul>
             </li>
             </ul>
            </p>
         </div>
         <div class="card-footer text-muted">
-            <a href="{% url 'update-event' event.id %}"class="btn btn-outline-dark btn-sm">Update Event</a>
-            <a href="{% url 'delete-event' event.id %}"class="btn btn-outline-danger btn-sm">Delete Event</a>
+            <a href="{% url 'main:update-event' event.id %}"class="btn btn-outline-dark btn-sm">Update Event</a>
+            <a href="{% url 'main:delete-event' event.id %}"class="btn btn-outline-danger btn-sm">Delete Event</a>
         </div>
     </div>
     <br/><br/>
