@@ -7,6 +7,9 @@ class Venue(models.Model):
     phone = models.CharField('phone' ,blank=True, max_length=20)
     email_addriss = models.EmailField('email' , blank=True, max_length=60)
     websit = models.URLField('web site' , blank=True , max_length=120)
+    venue_image = models.ImageField(null=True, blank=True, upload_to="images/")
+    
+
 
     def __str__(self):
         return self.name
@@ -28,11 +31,34 @@ class Event(models.Model):
     venue = models.CharField('veune name' , max_length=120)    #--------------------edit venue to venue_location
     manager = models.ForeignKey(User , blank=True , null=True , on_delete=models.SET_NULL)
     Description = models.TextField(blank=True)
+    event_image = models.ImageField(null=True, blank=True, upload_to="images/")
 
     def __str__(self):
         return self.name
 
-        
+class Review(models.Model):
+
+    venue = models.ForeignKey(Venue, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    content = models.TextField()
+    rating =  models.FloatField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+    def __str__(self) -> str:
+        return f"{self.user} : {self.venue}"
+
+class Review_Event(models.Model):
+
+    event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    content = models.TextField()
+    rating =  models.FloatField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+    def __str__(self) -> str:
+        return f"{self.user} : {self.event}"
 
 
 # Create your models here.

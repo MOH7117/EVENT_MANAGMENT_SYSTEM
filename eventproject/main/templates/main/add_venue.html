@@ -1,14 +1,14 @@
 {% extends 'main/base.html' %}
 
 {% block content %}
-<h1>add New venue</h1>
+
+{%if user.is_authenticated %}
+<h1 style="color: #ffff">Add New Venue</h1>
 <br>
-<!-- {% if submitted %}
-your submited is done
-{% else %} -->
+
 
 <div class="container">
-<form class="mx-sm-3 mb-2" action="" method=POST>
+<form class="mx-sm-3 mb-2" action="" method=POST enctype="multipart/form-data">
     
     {% csrf_token %}
     <div class="form-floating mt-2">
@@ -16,11 +16,11 @@ your submited is done
         <label for="floatingInput"> Name</label>
     </div> 
     <div class="form-floating mt-2">
-        <input name="addrise" type="date" class="form-control" >
-        <label for="floatingInput">address</label>
+        <input name="addrise" type="text" class="form-control" >
+        <label for="floatingInput">Address</label>
     </div> 
     <div class="form-floating mt-2">
-        <input name="phone" type="text" class="form-control"  placeholder="username">
+        <input name="phone" type="phone" class="form-control"  placeholder="username">
         <label for="floatingInput">phone</label>
     </div> 
     <div class="form-floating mt-2">
@@ -30,12 +30,19 @@ your submited is done
     <div class="form-floating mt-2">
         <input name="websit" type="textarea" class="form-control"  >
         <label for="floatingInput">websit</label>
-    </div> 
+    </div>  
+    <div class="mt-3">
+        <label style="color: #ffff">Choose File:</label>
+        <input type="file" name="venue_image" class="form-control"/>
+      </div>
    <br>
     <input type="submit" value="submit" class="btn btn-success">
     
 </form>
 </div>
+
+
 {% endif %}
+
 
 {% endblock %}

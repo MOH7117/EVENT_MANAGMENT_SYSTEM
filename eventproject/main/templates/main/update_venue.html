@@ -1,5 +1,6 @@
 {% extends 'main/base.html' %}
 {% block content %}
+{%if user.is_authenticated %}
 
 <div class="container">
     <h2>Update Venue</h2>
@@ -13,7 +14,7 @@
         </div>
     
         <div class="mt-3">
-          <label class="form-label">Address</label>
+          <label class="form-label">Date</label>
           <input type="date" name="address" class="form-control"  />
         </div>
     
@@ -45,6 +46,8 @@
     </form>
     
     </div>
+    
+    {% endif %}
     
    
 

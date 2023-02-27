@@ -1,31 +1,29 @@
 {% extends 'main/base.html' %}
 {% block content %}
 
-<h1>Events</h1>
+<h1 style="color: #ffff">Events</h1>
 
     {% for event in event_list %}
     <div class="card">
         <div class="card-header">
-            {{ event }}
+           <h4> {{ event }}</h4>
         </div>
         <div class="card-body">
             <h5 class="card-title">Venue: {{event.venue}}</h5>
-            <p class="card-text">
-             <ul>
-            <li>Date: {{event.event_date}}</li>
-            <li>venue website : {{event.venue.websit}}</li>
-            <li>Manager: {{event.manager}}</li>
-            <li>Description: {{event.Description}}</li>
-            </li>
-            </ul>
-           </p>
+
         </div>
-        <div class="card-footer text-muted">
-            <a href="{% url 'main:update-event' event.id %}"class="btn btn-outline-dark btn-sm">Update Event</a>
-            <a href="{% url 'main:delete-event' event.id %}"class="btn btn-outline-danger btn-sm">Delete Event</a>
-        </div>
+        {%if user.is_staff %}
+         
+            <div class="card-footer text-muted">
+                <a href="{% url 'main:update-event' event.id %}"class="btn btn-outline-dark btn-sm">Update Event</a>
+                <a href="{% url 'main:delete-event' event.id %}"class="btn btn-outline-danger btn-sm">Delete Event</a>
+                <a href="{% url 'main:show-event' event.id %}"class="btn btn-outline-danger btn-sm">Show Event</a>
+            </div>
+        {% endif %}
     </div>
     <br/><br/>
     {% endfor %}
+    
+    
 
 {% endblock %}

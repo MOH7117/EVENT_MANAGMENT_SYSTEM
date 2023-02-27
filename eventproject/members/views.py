@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpRequest, HttpResponse
 from django.contrib import messages
+from django.contrib.auth.models import User
+from .models import Profile
 
 
 def login_user(request : HttpRequest):
@@ -24,3 +26,15 @@ def login_user(request : HttpRequest):
 def logout_user(request: HttpRequest):
     logout(request)
     return redirect('account:login')
+
+
+def register_user(request : HttpRequest):
+
+    if request.method == "POST":
+        new_user = User.objects.create_user(username=request.POST["username"], email=request.POST["email"], password=request.POST["password"], first_name = request.POST["first_name"], last_name = request.POST["last_name"])
+        new_user.save()
+
+
+        #if register successful redirect to sign in page
+        return redirect("account:login")
+    return render(request, "account/register.html")
