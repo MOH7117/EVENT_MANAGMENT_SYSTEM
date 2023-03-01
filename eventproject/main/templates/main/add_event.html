@@ -2,14 +2,10 @@
 
 {% block content %}
 
-{%if user.is_authenticated %}
-<h1>Add Event</h1>
+{%if user.is_staff %}
+<h1 style="color: #ffff">Add Event</h1>
 <br/><br/>
 
-    {% if submitted %}
-        Your Event submited is done!!
-
-    {% else %}
 
 
     <div class="container">
@@ -33,7 +29,7 @@
                 <input name="description" type="textarea" class="form-control"  placeholder="username">
                 <label for="floatingInput">Description</label>
             </div>
-            <div class="mt-3">
+            <div class="mt-3" style="color: #ffff">
                 <label>Choose File:</label>
                 <input type="file" name="event_image" class="form-control"/>
               </div>
@@ -46,14 +42,7 @@
     {% endif %}
     <br/><br/>
 
-{% else %}
 
-<h1>Sorry! You must Login to view This page</h1>
-<br>
-
-<a href="{% url 'account:login' %}">login Here</a>
-
-{% endif %}
 
 
 {% endblock %}

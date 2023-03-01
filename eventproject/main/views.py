@@ -31,8 +31,10 @@ def add_venue(request: HttpRequest):
 
 
 def list_venues(request: HttpRequest):
-    venue_list = Venue.objects.all().order_by('name')
-    return render(request, 'main/venue.html',{"venue_list":venue_list})
+    
+        venue_list = Venue.objects.all().order_by('name')
+        return render(request, 'main/venue.html',{"venue_list":venue_list})
+
 
 
 
@@ -60,7 +62,7 @@ def update_event(request: HttpRequest, event_id):
         event.event_date = request.POST["date"]
         event.venue = request.POST["venue"]
         # event.manager = request.POST["mohammed"]
-        event.manager = request.user.id
+        event.manager = request.user
         event.Description = request.POST["description"]
 
         event.save()
@@ -105,9 +107,11 @@ def add_event(request : HttpRequest):
 
 
 def show_venue(request:HttpRequest, venue_id):
-    venues = Venue.objects.get(pk=venue_id)
-    reviews = Review.objects.filter(venue=venues)
-    return render(request, 'main/show_venue.html',{"venue":venues,"reviews":reviews})
+    if request.user.is_authenticated:
+        venues = Venue.objects.get(pk=venue_id)
+        reviews = Review.objects.filter(venue=venues)
+        return render(request, 'main/show_venue.html',{"venue":venues,"reviews":reviews})
+    return redirect('account:login')    
 
 
 def show_event(request : HttpRequest, event_id):

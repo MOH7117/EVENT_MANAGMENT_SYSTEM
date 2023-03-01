@@ -60,7 +60,7 @@ h1 {
     padding    : 48px 0 0;
     
     overflow   : hidden;
-    background : url('/static/images/stars.svg') no-repeat top left;
+    background : url('/static/img/stars.svg') no-repeat top left;
   }
   
   .rating:not(:hover) input:indeterminate + label,

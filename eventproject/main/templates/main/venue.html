@@ -2,29 +2,33 @@
 {% block content %}
 <style>
     h1{
-        color: rgb(120, 164, 200);
+        color: rgb(247, 247, 247);
     }
 </style>
 
 <h1>Venues..</h1>
 <br/>
-<table class="table table-secondary ">
-    {% for venue in venue_list %}
-    {{ venue }}
-    {%if user.is_staff %}
-        <tr>
-            <td>
-                <a href="{% url 'main:show-venue' venue.id %}" class="btn btn-primary btn-sm">{{ venue }}</a>
-            </td>
-            <td align = "right">
-               <a href="{% url 'main:update-venue' venue.id %}"class="btn btn-light btn-sm">Update</a>
-               <a href="{% url 'main:delete-venue' venue.id %}"class="btn btn-danger btn-sm">Delete</a>
-            </td>
 
+{% for venue in venue_list %}
+<div class="card">
+    <div class="card-header">
+       <h4> {{ venue }}</h4>
+    </div>
+    <div class="card-body">
+        {%if user.is_staff %}
+            <a href="{% url 'main:update-venue' venue.id %}"class="btn btn-outline-dark btn-sm">Update</a>
+            <a href="{% url 'main:delete-venue' venue.id %}"class="btn btn-outline-danger btn-sm">Delete</a>
             {% endif %}
-        </tr>
-    {%  endfor %}
-</table>
-
+           
+            <a href="{% url 'main:show-venue' venue.id %}" class="btn btn-outline-primary btn-sm">Show Venue</a>
+            <br/>
+            
+        </div>
+        
+    </div>
+    <br/><br/>
+   
+    {% endfor %}
+</div>
 
 {% endblock %}

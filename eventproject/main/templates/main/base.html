@@ -31,15 +31,18 @@ h1.odcom {
   margin: 80px 50px 100px 25px;
   text-align: center;
   color: azure;
-  
+  border-radius: 30px;
+  padding: 60px;
+  background: position 5px;
 }
 
 </style>
     
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark shadow-5-strong">
+  <nav class="navbar navbar-expand-lg navbar-dark shadow-5-strong ">
     <div class="container-md">
+      <img src="{% static 'img/Events.png' %}"style="width: 200px " alt="">
           <div class="collapse navbar-collapse p-4" id="navbarNav">
             <ul class="navbar-nav">
               <li class="nav-item">
@@ -86,15 +89,21 @@ h1.odcom {
               </li>
               {% endif %}
               </form>
+              
             </ul>
+            
 
           </div>
+         
+           
+             <h4 style="color: #ffff">{{request.user.username}}</h4>
+          
         </div>
       </nav>
       <div class="container ">
         <br/>
       {% block content %}
-      <h1 class="odcom">Welcome To The Event Management Website</h1>
+      <h1 class="odcom">Welcome To The Events Management Website</h1>
     {% endblock %}
 
   </div>

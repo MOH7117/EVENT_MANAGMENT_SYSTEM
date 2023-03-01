@@ -2,7 +2,7 @@
 
 {% block content %}
 
-{%if user.is_authenticated %}
+{%if user.is_staff %}
 <h1 style="color: #ffff">Add New Venue</h1>
 <br>
 
@@ -13,7 +13,7 @@
     {% csrf_token %}
     <div class="form-floating mt-2">
         <input name="name" type="text" class="form-control" >
-        <label for="floatingInput"> Name</label>
+        <label for="floatingInput">Venue Name</label>
     </div> 
     <div class="form-floating mt-2">
         <input name="addrise" type="text" class="form-control" >

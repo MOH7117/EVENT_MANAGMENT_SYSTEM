@@ -11,13 +11,20 @@
     <div class="card-body">
         <h5 class="card-title">Venue: {{event.venue}}</h5>
          <p class="card-text">
-            <ul>
-                <li>Date: {{event.event_date}}</li>
-                <li>venue website :{{event.venue.websit}}</li>
-                <li>Manager :{{event.manager}}</li>
-                <li>Description :{{event.Description}}</li>
-                <img src="{{ event.event_image.url }}" class="w-25 h-50" />
-            </ul>
+            <div class="row">
+                <div class="col">
+                    <ul>
+                        <li>Date: {{event.event_date}}</li>
+                        <li>Manager :{{event.manager}}</li>
+                        <li>Description :{{event.Description}}</li>  
+                    </ul>
+                </div>
+                <div class="col">
+                    <img  style=" height: 200px; width: 350px; " src="{{ event.event_image.url }}" class="rounded float-end" alt="...">
+                    <img src="" class="w-100" />
+                </div>
+            </div>
+
          </p>
     </div>
 

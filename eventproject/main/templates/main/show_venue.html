@@ -1,34 +1,29 @@
 {% extends 'main/base.html' %}
 {% block content %}
 
-<div class="grid">
-    <div class="g-col-6">.g-col-6</div>
-    <div class="g-col-6">.g-col-6</div>
-  </div>
 
 <div class="card">
     <div class="card-header">
-        venue
+        <h3>Venue</h3>
     </div>
+
     <div class="card-body">
-        <h5 class="card-title">{{ venue }}</h5>
-       
-            <tr>
-                    <td>
+        <h5 class="card-title">Venue: {{ venue }}</h5>
+        <p class="card-text">
+            <div class="row">
+                <div class="col">
+                    <ul>
                         <li>Address: {{ venue.addrise}}</li>
                         <li>Phone: {{ venue.phone }}</li>
                         <li>Email: {{ venue.email_addriss }}</li>
                         <li>Website: <a href="{{ venue.websit }}">{{ venue.websit }}</a></li><br>
-                    </td>
-                        <td>
-                            <img src="{{ venue.venue_image.url }}" class="w-25 h-50" />
-                        </td>
-                    
-            </tr>
-
-            
-        
-        
+                    </ul>
+                </div>
+                <div class="col">
+                    <img  style=" height: 200px; width: 350px; " src="{{ venue.venue_image.url }}" class="rounded float-end" alt="...">
+                </div>
+            </div>
+        </p>
     </div>
 </div>
 
@@ -59,7 +54,7 @@
             <div class="mt-3">
                 <h4 style="color: #ffff;">Rating:</h4>
                 <div class="rating">
-                    <input id="rating1" type="radio" name="rating" value="1">
+                    <input  id="rating1" type="radio" name="rating" value="1">
                     <label for="rating1">1</label>
                     <input id="rating2" type="radio" name="rating" value="2">
                     <label for="rating2">2</label>
@@ -74,14 +69,15 @@
             <input class="btn btn-primary mt-2" type="submit" value="Add Review" />
 
         </form>
+        <br>
     </div>
     {% else %}
 
-    <div class="border p-3 mt-3 " style="color: #ffff">
-        <p>To add reveiew please <a href="{% url 'account:login'%}">Sing In</a> or <a href="{% url 'account:register'%}">Sign Up</a></p>
-    </div>
-    <br>
 </div>
+<div class="border p-3 mt-3 " style="color: #ffff">
+    <p>To add reveiew please <a href="{% url 'account:login'%}">Sing In</a> or <a href="{% url 'account:register'%}">Sign Up</a></p>
+</div>
+
 
 {% endif %}
 
